@@ -163,7 +163,7 @@
             ['num' => '01', 'icon' => 'search', 'title' => 'Discover', 'desc' => 'We deep-dive into your goals, users, and market landscape to define a sharp strategic foundation.'],
             ['num' => '02', 'icon' => 'draw', 'title' => 'Design', 'desc' => 'High-fidelity wireframes and prototypes tested for clarity, delight, and performance.'],
             ['num' => '03', 'icon' => 'code', 'title' => 'Build', 'desc' => 'Engineering excellence with clean architecture, scalable APIs, and obsessive attention to detail.'],
-            ['num' => '04', 'icon' => 'rocket_launch', 'title' => 'Launch', 'desc' => 'Phased deployment with performance monitoring, optimization, and ongoing support built in.'],
+            ['num' => '04', 'icon' => 'rocket_launch', 'title' => 'Deploy', 'desc' => 'Phased deployment with performance monitoring, optimization, and ongoing support built in.'],
         ];
       @endphp
       @foreach($steps as $index => $step)
