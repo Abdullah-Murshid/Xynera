@@ -1,0 +1,113 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Public Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+    /* Custom Colors */
+    --color-agency-dark: #0a0c10;
+    --color-agency-surface: #161b22;
+    --color-agency-surface-light: #1c2330;
+    --color-agency-accent: #ec5b13;
+    --color-agency-accent-glow: rgba(236, 91, 19, 0.25);
+    --color-agency-text: #f1f5f9;
+    --color-agency-muted: #64748b;
+    --color-agency-muted-light: #94a3b8;
+    --color-agency-stroke: rgba(255, 255, 255, 0.08);
+
+    /* Custom Animations */
+    @keyframes drift {
+        0% { transform: translate(0, 0) scale(1); }
+        100% { transform: translate(50px, 70px) scale(1.12); }
+    }
+    @keyframes fade-up {
+        from { opacity: 0; transform: translateY(28px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scroll-down {
+        0% { transform: translateY(0); opacity: 1; }
+        80% { transform: translateY(14px); opacity: 0; }
+        100% { transform: translateY(0); opacity: 0; }
+    }
+    @keyframes ticker {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+    @keyframes pulse-custom {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.5; transform: scale(1.4); }
+    }
+    @keyframes menu-in {
+        from { opacity: 0; transform: translateY(-8px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes hex-pulse {
+        0% { transform: scale(0.8); opacity: 0.8; }
+        100% { transform: scale(1.5); opacity: 0; }
+    }
+    @keyframes tower-blink {
+        from { opacity: 0.4; }
+        to { opacity: 1; }
+    }
+    @keyframes icon-pop {
+        0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
+        100% { transform: scale(1) rotate(0); opacity: 1; }
+    }
+    @keyframes morph-ring {
+        0%, 100% { border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; transform: rotate(0); }
+        34% { border-radius: 70% 30% 46% 54% / 30% 29% 71% 70%; }
+        67% { border-radius: 100% 60% 60% 100% / 100% 100% 60% 60% ; }
+    }
+    @keyframes pulse-ring {
+        0% { transform: scale(0.8); opacity: 0; }
+        50% { opacity: 0.5; }
+        100% { transform: scale(1.3); opacity: 0; }
+    }
+
+    --animate-drift: drift 20s ease-in-out infinite alternate;
+    --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    --animate-scroll-down: scroll-down 1.6s ease-in-out infinite;
+    --animate-ticker: ticker 28s linear infinite;
+    --animate-pulse-custom: pulse-custom 2s ease-in-out infinite;
+    --animate-menu-in: menu-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    --animate-hex-pulse: hex-pulse 2s infinite;
+    --animate-tower-blink: tower-blink 1s infinite alternate;
+    --animate-icon-pop: icon-pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    --animate-morph: morph-ring 8s linear infinite;
+    --animate-pulse-ring: pulse-ring 3s linear infinite;
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+    body {
+        @apply bg-agency-dark text-agency-text font-sans antialiased overflow-x-hidden leading-tight;
+    }
+    /* Noise texture overlay */
+    body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 0;
+        opacity: .35;
+    }
+}
+
+@layer utilities {
+    .text-grad {
+        @apply bg-gradient-to-r from-agency-accent via-[#fb923c] to-[#fbbf24] bg-clip-text text-transparent;
+    }
+    .noise-grid {
+        background-image:
+            linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 40px 40px;
+    }
+}

@@ -1,0 +1,19 @@
+# Xynera — AI Automation & Web Development Agency
+
+Xynera is a modern digital agency specializing in custom web application development, AI automation workflows, enterprise digital solutions, and bespoke brand identity design.
+
+## Key Services
+- Custom Web Development: High-performance web applications built with modern frameworks, tailored database design, and robust API integrations.
+- AI Automation Solutions: Custom AI agents, automated workflow integrations, NLP processing, and intelligent customer operations.
+- Brand Identity & UI/UX Design: Purpose-driven user interfaces, brand systems, and conversion-optimized digital experiences.
+- Technical SEO & Performance Optimization: Core Web Vitals optimization, search indexing, structural markup, and speed enhancements.
+
+## Core Pages
+- Homepage: https://xynera.solutions/
+- Services: https://xynera.solutions/services
+- Portfolio: https://xynera.solutions/portfolio
+- Contact Us: https://xynera.solutions/contact
+
+## Contact Information
+- Email: info@xynera.solutions
+- Direct Inquiry: abdulrehman@xynera.solutions
