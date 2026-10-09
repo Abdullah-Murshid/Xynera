@@ -1,0 +1,16 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Block access to hidden dotfiles (.env, .git, etc.)
+    RewriteRule (^\.|/\.) - [F,L]
+
+    # Block access to internal directories if project root is exposed
+    RewriteRule ^(storage|vendor|app|bootstrap|config|database|resources|routes|tests)(/|$) - [F,L]
+
+    # Redirect to public directory
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+# Disable directory browsing
+Options -Indexes

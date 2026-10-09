@@ -6,19 +6,21 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 
 // Frontend Routes
-Route::get('/', [PageController::class, 'home'])->name('home');
-Route::get('/services', [PageController::class, 'services'])->name('services');
-Route::get('/portfolio', [PageController::class, 'portfolio'])->name('portfolio');
-Route::get('/portfolio/{project:slug}', [PageController::class, 'portfolioShow'])->name('portfolio.show');
-Route::get('/contact', [PageController::class, 'contact'])->name('contact');
-Route::post('/contact', [PageController::class, 'submitContact'])->name('contact.submit');
-Route::get('/privacy', [PageController::class, 'privacy'])->name('privacy');
-Route::get('/terms', [PageController::class, 'terms'])->name('terms');
+Route::middleware(['throttle:global_public'])->group(function () {
+    Route::get('/', [PageController::class, 'home'])->name('home');
+    Route::get('/services', [PageController::class, 'services'])->name('services');
+    Route::get('/portfolio', [PageController::class, 'portfolio'])->name('portfolio');
+    Route::get('/portfolio/{project:slug}', [PageController::class, 'portfolioShow'])->name('portfolio.show');
+    Route::get('/contact', [PageController::class, 'contact'])->name('contact');
+    Route::post('/contact', [PageController::class, 'submitContact'])->name('contact.submit')->middleware('throttle:contact');
+    Route::get('/privacy', [PageController::class, 'privacy'])->name('privacy');
+    Route::get('/terms', [PageController::class, 'terms'])->name('terms');
+});
 
 // Admin Auth
 Route::middleware(['guest'])->group(function () {
     Route::get('/login', [AuthController::class, 'login'])->name('login');
-    Route::post('/login', [AuthController::class, 'authenticate'])->name('login.submit');
+    Route::post('/login', [AuthController::class, 'authenticate'])->name('login.submit')->middleware('throttle:login');
 });
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

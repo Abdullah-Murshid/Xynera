@@ -41,7 +41,7 @@
         <div>
           <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-2">{{ $item['title'] }}</h4>
           @if(isset($item['is_address']))
-            <address class="not-italic text-agency-muted text-[0.95rem] leading-relaxed font-light">{!! nl2br($item['value']) !!}</address>
+            <address class="not-italic text-agency-muted text-[0.95rem] leading-relaxed font-light">{!! nl2br(e($item['value'])) !!}</address>
           @else
             <p><a href="{{ $item['link'] }}" class="text-agency-muted text-[0.95rem] hover:text-white transition-colors font-light">{{ $item['value'] }}</a></p>
           @endif
@@ -62,6 +62,9 @@
     <div class="lg:col-span-7 bg-white/[0.02] border border-agency-stroke rounded-[40px] p-8 md:p-12">
       <form class="flex flex-col gap-8" action="{{ route('contact.submit') }}" method="POST" id="contactForm">
         @csrf
+        <div style="display:none;" aria-hidden="true">
+          <input type="text" name="website_hp" value="" tabindex="-1" autocomplete="off">
+        </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <x-input label="First Name" name="first_name" placeholder="John" :value="old('first_name')" required />
           <x-input label="Last Name" name="last_name" placeholder="Doe" :value="old('last_name')" required />

@@ -63,7 +63,7 @@ class AdminController extends Controller
             'result'       => 'nullable|string',
             'technologies' => 'nullable|string',
             'live_url'     => 'nullable|url|max:255',
-            'image'        => 'nullable|image|max:5120',
+            'image'        => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
         ]);
 
         if ($request->hasFile('image')) {
@@ -90,7 +90,7 @@ class AdminController extends Controller
             'result'       => 'nullable|string',
             'technologies' => 'nullable|string',
             'live_url'     => 'nullable|url|max:255',
-            'image'        => 'nullable|image|max:5120',
+            'image'        => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
         ]);
 
         if ($request->hasFile('image')) {

@@ -27,8 +27,8 @@ class ContactRequest extends FormRequest
             'last_name'    => 'required|string|max:100',
             'email'        => 'required|email|max:150',
             'project_type' => 'required|string|in:Web Application,Mobile App,Corporate Website,Brand Identity,Other',
-
             'details'      => 'required|string|min:10|max:2000',
+            'website_hp'   => 'nullable|max:0',
         ];
     }
 }
