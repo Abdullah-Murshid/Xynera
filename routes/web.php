@@ -15,6 +15,7 @@ Route::middleware(['throttle:global_public'])->group(function () {
     Route::post('/contact', [PageController::class, 'submitContact'])->name('contact.submit')->middleware('throttle:contact');
     Route::get('/privacy', [PageController::class, 'privacy'])->name('privacy');
     Route::get('/terms', [PageController::class, 'terms'])->name('terms');
+    Route::get('/sitemap.xml', [PageController::class, 'sitemap'])->name('sitemap');
 });
 
 // Admin Auth
@@ -28,19 +29,19 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Admin Protected Routes
 Route::middleware(['auth', 'no-cache'])->prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
-    
+
     // Portfolio
     Route::get('/portfolio', [AdminController::class, 'portfolio'])->name('admin.portfolio');
     Route::post('/portfolio', [AdminController::class, 'storeProject'])->name('admin.portfolio.store');
     Route::put('/portfolio/{id}', [AdminController::class, 'updateProject'])->name('admin.portfolio.update');
     Route::delete('/portfolio/{id}', [AdminController::class, 'deleteProject'])->name('admin.portfolio.delete');
-    
+
     // Services
     Route::get('/services', [AdminController::class, 'services'])->name('admin.services');
     Route::post('/services', [AdminController::class, 'storeService'])->name('admin.services.store');
     Route::put('/services/{id}', [AdminController::class, 'updateService'])->name('admin.services.update');
     Route::delete('/services/{id}', [AdminController::class, 'deleteService'])->name('admin.services.delete');
-    
+
     Route::get('/messages', [AdminController::class, 'messages'])->name('admin.messages');
     Route::delete('/messages/{id}', [AdminController::class, 'deleteMessage'])->name('admin.messages.delete');
     Route::get('/settings', [AdminController::class, 'settings'])->name('admin.settings');

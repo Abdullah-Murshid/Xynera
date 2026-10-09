@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 
 class PageController extends Controller
 {
@@ -23,7 +24,7 @@ class PageController extends Controller
         $services = Service::take(5)->get();
         $projects = Project::where('is_featured', true)->take(3)->get();
         $testimonials = Testimonial::take(3)->get();
-        
+
         return view('pages.home', compact('services', 'projects', 'testimonials'));
     }
 
@@ -83,6 +84,49 @@ class PageController extends Controller
     public function terms(): View
     {
         return view('pages.terms');
+    }
+
+    public function sitemap(): Response
+    {
+        $staticRoutes = [
+            '/',
+            '/services',
+            '/portfolio',
+            '/contact',
+            '/privacy',
+            '/terms',
+        ];
+
+        $urls = [];
+
+        foreach ($staticRoutes as $path) {
+            $viewName = match ($path) {
+                '/' => 'home',
+                default => ltrim($path, '/'),
+            };
+
+            $viewFile = resource_path("views/pages/{$viewName}.blade.php");
+            $lastmod = file_exists($viewFile)
+                ? \Carbon\Carbon::createFromTimestamp(filemtime($viewFile))->toIso8601String()
+                : now()->toIso8601String();
+
+            $urls[] = [
+                'loc' => url($path),
+                'lastmod' => $lastmod,
+            ];
+        }
+
+        $projects = Project::orderBy('updated_at', 'desc')->get();
+        foreach ($projects as $project) {
+            $urls[] = [
+                'loc' => url('/portfolio/' . $project->slug),
+                'lastmod' => $project->updated_at ? $project->updated_at->toIso8601String() : now()->toIso8601String(),
+            ];
+        }
+
+        return response()
+            ->view('sitemap', compact('urls'), 200)
+            ->header('Content-Type', 'application/xml; charset=UTF-8');
     }
 
     public function submitContact(ContactRequest $request): JsonResponse|RedirectResponse
