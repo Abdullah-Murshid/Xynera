@@ -36,20 +36,53 @@ class PageController extends Controller
 
     public function portfolio(Request $request): View
     {
-        $query = Project::query();
+        $rawCategory = $request->query('category');
+        $activeSlug = $this->normalizeCategorySlug($rawCategory);
 
-        if ($request->filled('category')) {
-            $category = rawurldecode($request->category);
-            $query->where('category', $category);
+        $projects = Project::orderBy('order', 'asc')->get();
+
+        return view('pages.portfolio', compact('projects', 'activeSlug'));
+    }
+
+    /**
+     * Map clean URL slugs and legacy query inputs to standard filter slugs.
+     */
+    private function normalizeCategorySlug(?string $input): string
+    {
+        if (empty($input)) {
+            return 'all';
         }
 
-        $projects = $query->orderBy('order', 'asc')->get();
-        return view('pages.portfolio', compact('projects'));
+        $inputLower = strtolower(trim(rawurldecode($input)));
+
+        return match ($inputLower) {
+            'web-apps', 'web-app', 'web app', 'web application', 'web apps', 'web' => 'web-apps',
+            'mobile', 'mobile app', 'mobile-app', 'mobile apps' => 'mobile',
+            'branding', 'brand', 'brand & web', 'brand-web', 'brand and web', 'brand &amp; web' => 'branding',
+            'enterprise-cloud', 'enterprise cloud', 'enterprise', 'cloud' => 'enterprise-cloud',
+            default => 'all',
+        };
+    }
+
+    public function portfolioShow(Project $project): View
+    {
+        $relatedProjects = Project::where('id', '!=', $project->id)->orderBy('order', 'asc')->take(2)->get();
+        return view('pages.portfolio-show', compact('project', 'relatedProjects'));
     }
 
     public function contact(): View
     {
         return view('pages.contact');
+    }
+
+    public function privacy(): View
+    {
+        return view('pages.privacy');
+    }
+
+    public function terms(): View
+    {
+        return view('pages.terms');
     }
 
     public function submitContact(ContactRequest $request): JsonResponse|RedirectResponse

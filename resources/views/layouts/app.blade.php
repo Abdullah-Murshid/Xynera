@@ -15,8 +15,8 @@
     <meta name="msapplication-TileColor" content="#EC5B13">
 
     @php
-        // Look up SEO record by the current route name (e.g. 'home', 'services')
-        $seo = \App\Models\SeoMeta::getBySlug(Route::currentRouteName());
+        $routeName = Route::currentRouteName();
+        $seo = $routeName ? \App\Models\SeoMeta::getBySlug($routeName) : null;
 
         // Page-level defaults — views can override by publishing a 'title' section
         $defaultTitle = View::yieldContent('title', 'Build the Future');
@@ -161,8 +161,8 @@
     <div class="pt-8 border-t border-agency-stroke flex flex-col md:flex-row justify-between items-center gap-4 text-agency-muted text-xs font-medium uppercase tracking-widest">
       <p>© {{ date('Y') }} Xynera Studio. All rights reserved.</p>
       <div class="flex gap-8">
-        <a href="{{ route('home') }}" class="hover:text-white transition-colors">Privacy Policy</a>
-        <a href="{{ route('home') }}" class="hover:text-white transition-colors">Terms of Service</a>
+        <a href="{{ route('privacy') }}" class="hover:text-white transition-colors">Privacy Policy</a>
+        <a href="{{ route('terms') }}" class="hover:text-white transition-colors">Terms &amp; Conditions</a>
       </div>
     </div>
   </div>

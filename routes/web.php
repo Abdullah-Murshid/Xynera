@@ -9,8 +9,11 @@ use App\Http\Controllers\AuthController;
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/services', [PageController::class, 'services'])->name('services');
 Route::get('/portfolio', [PageController::class, 'portfolio'])->name('portfolio');
+Route::get('/portfolio/{project:slug}', [PageController::class, 'portfolioShow'])->name('portfolio.show');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::post('/contact', [PageController::class, 'submitContact'])->name('contact.submit');
+Route::get('/privacy', [PageController::class, 'privacy'])->name('privacy');
+Route::get('/terms', [PageController::class, 'terms'])->name('terms');
 
 // Admin Auth
 Route::middleware(['guest'])->group(function () {

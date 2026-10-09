@@ -53,7 +53,7 @@
             ['num' => '25', 'suffix' => '+', 'label' => 'Projects Delivered'],
             ['num' => '98', 'suffix' => '%', 'label' => 'Client Satisfaction'],
             ['num' => $services->count(), 'suffix' => '', 'label' => 'Core Services'],
-            ['num' => '5', 'suffix' => 'yr', 'label' => 'In Operation'],
+            ['num' => '2', 'suffix' => 'yr', 'label' => 'In Operation'],
         ];
       @endphp
       @foreach($stats as $stat)

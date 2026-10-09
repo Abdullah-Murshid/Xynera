@@ -23,8 +23,11 @@ class SeoMeta extends Model
      * Fetch SEO meta by page slug/name.
      * Usage: SeoMeta::getBySlug('home')
      */
-    public static function getBySlug(string $slug): ?self
+    public static function getBySlug(?string $slug): ?self
     {
+        if (empty($slug)) {
+            return null;
+        }
         return static::where('page_name', $slug)->first();
     }
 

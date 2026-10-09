@@ -53,11 +53,17 @@ class AdminController extends Controller
     public function storeProject(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'title'       => 'required|string|max:255',
-            'category'    => 'required|string|in:Web Application,Mobile App,Branding,UI/UX Design,E-Commerce,Other',
-            'year'        => 'required|integer|min:2000|max:2100',
-            'description' => 'required|string',
-            'image'       => 'nullable|image|max:5120',
+            'title'        => 'required|string|max:255',
+            'category'     => 'required|string|max:255',
+            'year'         => 'required|integer|min:2000|max:2100',
+            'description'  => 'required|string',
+            'client'       => 'nullable|string|max:255',
+            'problem'      => 'nullable|string',
+            'solution'     => 'nullable|string',
+            'result'       => 'nullable|string',
+            'technologies' => 'nullable|string',
+            'live_url'     => 'nullable|url|max:255',
+            'image'        => 'nullable|image|max:5120',
         ]);
 
         if ($request->hasFile('image')) {
@@ -74,11 +80,17 @@ class AdminController extends Controller
         $project = Project::findOrFail($id);
 
         $validated = $request->validate([
-            'title'       => 'required|string|max:255',
-            'category'    => 'required|string|in:Web Application,Mobile App,Branding,UI/UX Design,E-Commerce,Other',
-            'year'        => 'required|integer|min:2000|max:2100',
-            'description' => 'required|string',
-            'image'       => 'nullable|image|max:5120',
+            'title'        => 'required|string|max:255',
+            'category'     => 'required|string|max:255',
+            'year'         => 'required|integer|min:2000|max:2100',
+            'description'  => 'required|string',
+            'client'       => 'nullable|string|max:255',
+            'problem'      => 'nullable|string',
+            'solution'     => 'nullable|string',
+            'result'       => 'nullable|string',
+            'technologies' => 'nullable|string',
+            'live_url'     => 'nullable|url|max:255',
+            'image'        => 'nullable|image|max:5120',
         ]);
 
         if ($request->hasFile('image')) {

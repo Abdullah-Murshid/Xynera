@@ -122,29 +122,36 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
       @if($projects->count() > 0)
         @php $featured = $projects->first(); @endphp
-        <div class="relative group h-[500px] lg:h-[700px] rounded-3xl overflow-hidden border border-agency-stroke reveal"
+        <a href="{{ route('portfolio.show', $featured->slug) }}" class="relative group h-[500px] lg:h-[700px] rounded-3xl overflow-hidden border border-agency-stroke reveal block"
              style="background-image: url('{{ $featured->image_path ? asset('storage/' . $featured->image_path) : '' }}'); background-size: cover; background-position: center;">
-            <div class="absolute inset-0 bg-gradient-to-t from-agency-dark via-agency-dark/20 to-transparent opacity-80"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-agency-dark via-agency-dark/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
             <div class="absolute inset-0 noise-grid opacity-20 pointer-events-none"></div>
             
             <div class="absolute bottom-10 left-10 right-10">
                 <span class="text-[0.6rem] font-bold uppercase tracking-[0.2em] text-agency-accent mb-3 block">{{ $featured->category }}</span>
-                <h3 class="text-3xl font-black mb-3">{{ $featured->title }}</h3>
-                <p class="text-agency-muted text-sm line-clamp-2 font-light max-w-sm">{{ $featured->description }}</p>
+                <h3 class="text-3xl font-black mb-3 group-hover:text-agency-accent transition-colors">{{ $featured->title }}</h3>
+                <p class="text-agency-muted text-sm line-clamp-2 font-light max-w-sm mb-4">{{ $featured->description }}</p>
+                <span class="inline-flex items-center gap-2 text-[0.7rem] font-bold uppercase tracking-widest text-white opacity-80 group-hover:opacity-100 transition-all">
+                  View Case Study <span class="material-symbols-outlined !text-sm">arrow_forward</span>
+                </span>
             </div>
-        </div>
+        </a>
 
         <div class="grid grid-cols-1 gap-8">
             @foreach($projects->skip(1) as $index => $project)
-            <div class="relative group h-[235px] md:h-[335px] rounded-3xl overflow-hidden border border-agency-stroke reveal [transition-delay:{{ ($index + 1) * 0.1 }}s]"
+            <a href="{{ route('portfolio.show', $project->slug) }}" class="relative group h-[235px] md:h-[335px] rounded-3xl overflow-hidden border border-agency-stroke reveal [transition-delay:{{ ($index + 1) * 0.1 }}s] block"
                  style="background-image: url('{{ $project->image_path ? asset('storage/' . $project->image_path) : '' }}'); background-size: cover; background-position: center;">
-                <div class="absolute inset-0 bg-gradient-to-t from-agency-dark via-agency-dark/10 to-transparent opacity-90"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-agency-dark via-agency-dark/10 to-transparent opacity-90 group-hover:opacity-95 transition-opacity"></div>
                 
                 <div class="absolute bottom-8 left-8 right-8">
+                    <span class="text-[0.6rem] font-bold uppercase tracking-[0.2em] text-agency-accent mb-1 block">{{ $project->category }}</span>
                     <h3 class="text-xl font-black mb-1 group-hover:text-agency-accent transition-colors">{{ $project->title }}</h3>
-                    <p class="text-agency-muted text-xs line-clamp-1 font-light max-w-xs">{{ $project->description }}</p>
+                    <p class="text-agency-muted text-xs line-clamp-1 font-light max-w-xs mb-3">{{ $project->description }}</p>
+                    <span class="inline-flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-widest text-white opacity-80 group-hover:opacity-100 transition-all">
+                      View Case Study <span class="material-symbols-outlined !text-xs">arrow_forward</span>
+                    </span>
                 </div>
-            </div>
+            </a>
             @endforeach
         </div>
       @endif
